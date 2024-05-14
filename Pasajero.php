@@ -2,8 +2,8 @@
     class Pasajero{
         private $nombre;
         private $dni;
-        private $numAsiento;
-        private $numTicket;
+        private $numAsiento;  //cambios
+        private $numTicket;   //c
 
         public function __construct($nombre, $dni, $numAsiento,$numTicket){
             $this->nombre=$nombre;
