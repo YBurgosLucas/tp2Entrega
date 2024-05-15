@@ -17,6 +17,9 @@ al responsable de realizar el viaje.
 Implementar las operaciones que permiten modificar el nombre, apellido y teléfono de un pasajero. Luego implementar la operación que
 agrega los pasajeros al viaje, solicitando por consola la información de los mismos. Se debe verificar que el pasajero no este 
 cargado mas de una vez en el viaje. De la misma forma cargue la información del responsable del viaje. */
+include_once "Pasajero.php";
+include "ResponsableV.php";
+
 
 class Viaje{
         private $codigoViaje;
@@ -90,37 +93,41 @@ class Viaje{
         }
         
 //metodos para modificar
-public function pasajeroExistente($pasajeros, $dni){
+public function pasajeroExistente($dni){
     $existente=false;
-    foreach ($this->getPasajeros() as $pasajero) {
-        foreach($pasajero as $i){ 
-            if($i->getNroDocumento() == $dni){
-                $existente=true;
-            }
-            else{
-                $this->pasajeros[]=$pasajero;
-                $existente=false;
-            }
-        }
-
-     }
-     return $existente;
-}
-public function agregarPasajero($pasajeros, $unPasajero) {
-    $valido=false;
-    $colecPasajeros=$this->getPasajeros();
-    if (count($colecPasajeros) < $this->getCantMaxP()) {
-        if($this->pasajeroExistente($pasajeros, $unPasajero)==false){
-            $np=count($colecPasajeros);
-            $colecPasajeros[$np]=$unPasajero;
-            $valido=true;
-        }
+    $colePasajeros=$this->getColePasajeros();
+    if(count($colecPasajeros)>0){
+        do{
+            if($colePasajeros[$i]->getDni()==$dni){
+            $existente=true;
+              }
+        $i++;
+         } while($i<count($colePasajeros) && $existente==false);
     }
-    $this->setPasajeros($colecPasajeros);
+    return $existente;
+}
+public function responsableExistente( $nroEmpleado){
+    $existente=false;
+    $objResponsable=$this->getObjResponsable();
+    if($objResponsable->getNroEmpleado()==$nroEmpleado){
+        $existente=true;
+    }
+    return $existente;
+}
+
+
+public function agregarPasajero($objPasajero) {
+    $valido=false;
+    $colecPasajeros=$this->getColePasajeros();
+    if (count($colecPasajeros) < $this->getCantMaxP()) {
+        if($this->pasajeroExistente($objPasajero->getDni())==false){
+            $valido=true;
+            $i=count($colecPasajeros);
+            $colecPasajeros[$i]=$objPasajero;
+            $this->setColecPasajeros($colecPasajeros);
+        }
+    }   
     return $valido;
  }
-
-
-
  }
 

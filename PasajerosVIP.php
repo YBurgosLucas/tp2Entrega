@@ -26,4 +26,13 @@
                  "\nCant.Millas:".$this->getCantMillas();
             return $cad;
         }
+        public function darPorcentajeIncremento(){
+            if($this->getCantMillas()>=300){
+                $porcentaje=35;
+            }
+            else{
+                $porcentaje=30;
+            }
+            return $porcentaje;
+        }
     }

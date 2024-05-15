@@ -78,4 +78,8 @@
             $this->getNumTicket($nuevoTicket);
             
         }
+        public function darPorcentajeIncremento(){
+            $porcentaje=10;
+            return $porcentaje;
+        }
     }

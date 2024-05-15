@@ -6,8 +6,8 @@
         private $nombre;
         private $apellido;
         
-        public function __construct($empleado, $licencia, $nom, $apell){
-            $this->nroEmpleado=$empleado;
+        public function __construct($nroEmpleado, $licencia, $nom, $apell){
+            $this->nroEmpleado=$nroEmpleado;
             $this->nroLicencia=$licencia;
             $this->nombre=$nom;
             $this->apellido=$apell;
@@ -29,8 +29,8 @@
         return $this->apellido;
     }
     //metodos acceso set
-    public function setNroEmpleado($empleado) {
-        $this->nroEmpleado = $empleado;
+    public function setNroEmpleado($nroEmpleado) {
+        $this->nroEmpleado = $nroEmpleado;
     }
 
     public function setNroLicencia($licencia) {
