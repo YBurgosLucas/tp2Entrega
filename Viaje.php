@@ -17,7 +17,9 @@ al responsable de realizar el viaje.
 Implementar las operaciones que permiten modificar el nombre, apellido y teléfono de un pasajero. Luego implementar la operación que
 agrega los pasajeros al viaje, solicitando por consola la información de los mismos. Se debe verificar que el pasajero no este 
 cargado mas de una vez en el viaje. De la misma forma cargue la información del responsable del viaje. */
-
+include_once "Pasajero.php";
+include_once "PasajerosVIP.php";
+include_once "PasajerosConNE.php";
 
 
 class Viaje{
@@ -81,7 +83,7 @@ class Viaje{
         $this->objResponsable=$responsable;
     }
     
-    public function setCostoUnViaje($costoUnViaje){
+    public function setCostoViaje($costoUnViaje){
         $this->costoUnViaje=$costoUnViaje;
     }
     public function retornarColecPasajero(){
@@ -105,22 +107,15 @@ class Viaje{
 //metodos para modificar
 public function pasajeroExistente($dni){
     $existente=false;
+    $i=0;
     $colePasajeros=$this->getColePasajeros();
     if(count($colePasajeros)>0){
         do{
-            if($colePasajeros[$i]->getDni()==$dni){
+            if($colePasajeros[$i]->getNroDocumento()==$dni){
             $existente=true;
               }
         $i++;
          } while($i<count($colePasajeros) && $existente==false);
-    }
-    return $existente;
-}
-public function responsableExistente( $nroEmpleado){
-    $existente=false;
-    $objResponsable=$this->getObjResponsable();
-    if($objResponsable->getNroEmpleado()==$nroEmpleado){
-        $existente=true;
     }
     return $existente;
 }
@@ -129,20 +124,20 @@ public function responsableExistente( $nroEmpleado){
 public function agregarPasajero($objPasajero) {
     $valido=false;
     $colecPasajeros=$this->getColePasajeros();
-    if (count($colecPasajeros) < $this->getCantMaxP()) {
-        if($this->pasajeroExistente($objPasajero->getNroDocumento())==false){
+     if($this->pasajeroExistente($objPasajero->getNroDocumento())==false){
             $valido=true;
             $i=count($colecPasajeros);
             $colecPasajeros[$i]=$objPasajero;
-            $this->setColecPasajeros($colecPasajeros);
+            $this->setColecPasajeros($colecPasajeros);        
         }
+    return $valido;    
     }   
-    return $valido;
- }
+    
+ 
  public function hayPasajesDisponile(){
     $i=count($this->getColePasajeros());
     
-    if($i<=$this->getCantMaxP()){
+    if($this->getCantMaxP()>$i){
         $asientosDisponible=true;
     }
     else{
@@ -152,15 +147,25 @@ public function agregarPasajero($objPasajero) {
 
  }
  public function venderPasaje($objPasajero){
-    
+    $costofinal=0;
     if($this->hayPasajesDisponile()){
         if($this->agregarPasajero($objPasajero)){
-            $costofinal=$this->getCostoViaje()+($objPasajero->darPorcentajeIncremento());
-            $this->setCostoUnViaje($costofinal);
+            $porcentaje=$objPasajero->darPorcentajeIncremento();
+            $costofinal=$this->getCostoViaje()+(($this->getCostoViaje()*$porcentaje)/100);
          }
     }
-    return $costofinal;
 
- }
+     return $costofinal;
+    }
+
+public function montoTotalPortodosPasajero(){
+    $costoTotal=0;
+    foreach($this->getColePasajeros() as $unPasajero){
+            $porcentaje=$unPasajero->darPorcentajeIncremento();
+            $costoTotal+=$this->getCostoViaje()+(($this->getCostoViaje()*$porcentaje)/100);
+        }
+        return $costoTotal;
+    }
+
  }
 

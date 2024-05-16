@@ -74,10 +74,11 @@
             $this->setNombre($nuevoNom);
             $this->setApellido($nuevoApe);
             $this->setTelefono($nuevoTele);
-            $this->getNumAsiento($nuevoAsiento);
-            $this->getNumTicket($nuevoTicket);
+            $this->setNumAsiento($nuevoAsiento);
+            $this->setNumTicket($nuevoTicket);
             
         }
+
         public function darPorcentajeIncremento(){
             $porcentaje=10;
             return $porcentaje;

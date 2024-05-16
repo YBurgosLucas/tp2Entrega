@@ -3,8 +3,8 @@
     class PasajerosVIP extends Pasajero{
         private $numPasajeroFrecuente;
         private $cantMillas;
-        public function __construct($nombre, $apellido, $dni, $telefono, $numAsiento,$numPasajeroFrecuente,$cantMillas){
-            parent::__construct($nombre, $apellido, $dni, $telefono, $numAsiento);
+        public function __construct($nombre, $apellido, $dni, $telefono, $numAsiento, $numTicket, $numPasajeroFrecuente,$cantMillas){
+            parent::__construct($nombre, $apellido, $dni, $telefono, $numAsiento, $numTicket);
             $this->numPasajeroFrecuente=$numPasajeroFrecuente;
             $this->cantMillas=$cantMillas;
         }
