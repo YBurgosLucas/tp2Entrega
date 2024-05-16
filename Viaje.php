@@ -17,8 +17,7 @@ al responsable de realizar el viaje.
 Implementar las operaciones que permiten modificar el nombre, apellido y teléfono de un pasajero. Luego implementar la operación que
 agrega los pasajeros al viaje, solicitando por consola la información de los mismos. Se debe verificar que el pasajero no este 
 cargado mas de una vez en el viaje. De la misma forma cargue la información del responsable del viaje. */
-include_once "Pasajero.php";
-include "ResponsableV.php";
+
 
 
 class Viaje{
@@ -27,13 +26,16 @@ class Viaje{
         private $cantMaxP;
         private $colecPasajeros;//arreglo informacion de pasajeros
         private $objResponsable;
+        private $costoUnViaje;
+    
         
-    public function __construct($codiViaje, $lugar, $maxPersonas, $colecPasajeros, $responsable ){
+    public function __construct($codiViaje, $lugar, $maxPersonas, $colecPasajeros, $responsable, $costoUnViaje ){
         $this->codigoViaje=$codiViaje;
         $this->destino=$lugar;
         $this->cantMaxP=$maxPersonas;
         $this->colecPasajeros=$colecPasajeros;
         $this->objResponsable=$responsable;
+        $this->costoUnViaje=$costoUnViaje;
     }
 // metodos acceso get
     public function getCodigoViaje() {
@@ -55,6 +57,9 @@ class Viaje{
     public function getObjResponsable(){
         return $this->objResponsable;
     }
+    public function getCostoViaje(){
+        return $this->costoUnViaje;
+    }
 //metodos acceso set
     public function setCodigoViaje($codiViaje) {
          $this->codigoViaje = $codiViaje;
@@ -75,6 +80,10 @@ class Viaje{
     public function setObjResponsable($responsable){
         $this->objResponsable=$responsable;
     }
+    
+    public function setCostoUnViaje($costoUnViaje){
+        $this->costoUnViaje=$costoUnViaje;
+    }
     public function retornarColecPasajero(){
         $cad="";
         foreach ($this->getColePasajeros() as $unPasajero){
@@ -86,8 +95,9 @@ class Viaje{
         $cadena="Codigo de viaje: ".$this->getCodigoViaje().
                 "\nDestino: ".$this->getDestino().
                 "\nCapacidad Maxima de Pasajeros: ".$this->getCantMaxP().
-                "\nColeccion Pasajero:\n ".$this->retornarColecPasajero().
-                "\nResponsable:".$this->getObjResponsable(); 
+                "\nColeccion Pasajero:\n".$this->retornarColecPasajero().
+                "\nResponsable:".$this->getObjResponsable().
+                "\nCosto Viaje:$".$this->getCostoViaje(); 
 
         return $cadena;
         }
@@ -96,7 +106,7 @@ class Viaje{
 public function pasajeroExistente($dni){
     $existente=false;
     $colePasajeros=$this->getColePasajeros();
-    if(count($colecPasajeros)>0){
+    if(count($colePasajeros)>0){
         do{
             if($colePasajeros[$i]->getDni()==$dni){
             $existente=true;
@@ -120,7 +130,7 @@ public function agregarPasajero($objPasajero) {
     $valido=false;
     $colecPasajeros=$this->getColePasajeros();
     if (count($colecPasajeros) < $this->getCantMaxP()) {
-        if($this->pasajeroExistente($objPasajero->getDni())==false){
+        if($this->pasajeroExistente($objPasajero->getNroDocumento())==false){
             $valido=true;
             $i=count($colecPasajeros);
             $colecPasajeros[$i]=$objPasajero;
@@ -129,7 +139,28 @@ public function agregarPasajero($objPasajero) {
     }   
     return $valido;
  }
+ public function hayPasajesDisponile(){
+    $i=count($this->getColePasajeros());
     
+    if($i<=$this->getCantMaxP()){
+        $asientosDisponible=true;
+    }
+    else{
+        $asientosDisponible=false;
+    }
+    return $asientosDisponible;
 
+ }
+ public function venderPasaje($objPasajero){
+    
+    if($this->hayPasajesDisponile()){
+        if($this->agregarPasajero($objPasajero)){
+            $costofinal=$this->getCostoViaje()+($objPasajero->darPorcentajeIncremento());
+            $this->setCostoUnViaje($costofinal);
+         }
+    }
+    return $costofinal;
+
+ }
  }
 

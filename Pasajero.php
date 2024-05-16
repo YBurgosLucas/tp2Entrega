@@ -7,7 +7,7 @@
         private $numAsiento;
         private $numTicket;
     
-        public function __construct($nombre, $apellido, $dni, $telefono, $numAsiento){
+        public function __construct($nombre, $apellido, $dni, $telefono, $numAsiento,$numTicket){
             $this->nombre=$nombre;
             $this->apellido=$apellido;
             $this->nroDocumento=$dni;
@@ -70,7 +70,7 @@
 
         }
         
-        public function modificar($nuevoNom, $nuevoApe, $nuevoTele){
+        public function modificar($nuevoNom, $nuevoApe, $nuevoTele,$nuevoAsiento,$nuevoTicket){
             $this->setNombre($nuevoNom);
             $this->setApellido($nuevoApe);
             $this->setTelefono($nuevoTele);

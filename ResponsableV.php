@@ -48,7 +48,7 @@
     public function __tostring(){
         $cad="Nro. Empleado: ".$this->getNroEmpleado().
              "\nNro. Licencia: ".$this->getNroLicencia().
-             "\nNombre y Apellido: ".$this->getNombre()." ".$this->getApellido();
+             "\nNombre y Apellido: ".$this->getNombre()." ".$this->getApellido()."\n";
         return $cad;
     }
 
