@@ -5,6 +5,7 @@
     include_once "Pasajero.php";
     include_once "PasajerosConNE.php";
     include_once "PasajerosVIP.php";
+    include_once "PasajeroEstandar.php";
      
     
     $objResponsable=null;
@@ -82,7 +83,7 @@
                     }while($respuesta==false);
                         switch($opcion2){
                             case 1:
-                                $objPasajero=new Pasajero($nombre,$apellido,$dni,$telefono,$numAsiento,$numTicket);
+                                $objPasajero=new PasajeroEstandar($nombre,$apellido,$dni,$telefono,$numAsiento,$numTicket);
                                 echo "-------------------------------------------\n";
                                 break;
                             case 2://$nombre, $apellido, $dni, $telefono, $numAsiento,$numPasajeroFrecuente,$cantMillas
