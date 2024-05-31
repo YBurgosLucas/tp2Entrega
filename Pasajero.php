@@ -79,8 +79,8 @@
             
         }
 
-        public function darPorcentajeIncremento(){
-            $porcentaje=10;
+        public function darPorcentajeIncremento(){ //pasajero estandar agrgegar, en clase pasajero return 0
+            $porcentaje=0;
             return $porcentaje;
         }
     }
