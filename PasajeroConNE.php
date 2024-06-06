@@ -1,6 +1,6 @@
 <?php
     include_once "Pasajero.php";
-    class PasajerosConNE extends Pasajero{
+    class PasajeroConNE extends Pasajero{
         private  $serviciosE; // servicios Especiales
         
         public function __construct($nombre, $apellido, $dni, $telefono, $numAsiento,$numTicket,$serviciosE){

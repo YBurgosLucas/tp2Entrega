@@ -3,8 +3,8 @@
     include "Viaje.php";
     include_once "ResponsableV.php";
     include_once "Pasajero.php";
-    include_once "PasajerosConNE.php";
-    include_once "PasajerosVIP.php";
+    include_once "PasajeroConNE.php";
+    include_once "PasajeroVIP.php";
     include_once "PasajeroEstandar.php";
      
     
@@ -91,22 +91,27 @@
                                 $numPasajeroFrecuente=trim(fgets(STDIN));
                                 echo "Ingresar Cant.Millas:";
                                 $cantMillas=trim(fgets(STDIN));
-                                $objPasajero=new PasajerosVIP($nombre,$apellido,$dni,$telefono,$numAsiento,$numTicket, $numPasajeroFrecuente,$cantMillas);
+                                $objPasajero=new PasajeroVIP($nombre,$apellido,$dni,$telefono,$numAsiento,$numTicket, $numPasajeroFrecuente,$cantMillas);
                                 echo "-------------------------------------------\n";
                                 break;
                             case 3://$nombre, $apellido, $dni, $telefono, $numAsiento,$serviciosE
-                                echo "ingresar cantidad de servicios especiales:";
-
-                                $cantServiciosE=trim(fgets(STDIN));
                                 $serviciosE=[];
-                                    echo "1-sillas rueda";
-                                    echo "\n2-asistecia embarque y desembarque";
-                                    echo "\n3-Alimentos especiales";                                 
-                                for($i=0; $i<$cantServiciosE; $i++){
-                                    echo "\n ingresar nombre de los servicios:";
-                                    $serviciosE[$i]=trim(fgets(STDIN));
+                                echo "Pasajero necesita sillas de ruedas? (si/no)";
+                                $sillaRueda=trim(fgets(STDIN));
+                                echo "\n Pasajero necesita Asistencia? (si/no) ";
+                                $asistencia=trim(fgets(STDIN));
+                                echo "\n Pasajero necesita comidas especiales? (si/no) ";
+                                $comida=trim(fgets(STDIN));
+                                if($sillaRueda == "si" ){
+                                    $serviciosE[]=$sillaRueda;
                                 }
-                                $objPasajero= new PasajerosConNE($nombre,$apellido,$dni,$telefono,$numAsiento,$numTicket, $serviciosE);
+                                if($asistencia == "si"){
+                                    $serviciosE[]=$asistencia;
+                                }
+                                if($comida == "si"){
+                                    $serviciosE[]=$comida;
+                                }
+                                $objPasajero= new PasajeroConNE($nombre,$apellido,$dni,$telefono,$numAsiento,$numTicket, $serviciosE);
                                 echo "-------------------------------------------\n";
                                 break; 
                          }

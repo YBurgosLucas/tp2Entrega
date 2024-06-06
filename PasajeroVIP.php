@@ -1,6 +1,6 @@
 <?php
     include_once "Pasajero.php";
-    class PasajerosVIP extends Pasajero{
+    class PasajeroVIP extends Pasajero{
         private $numPasajeroFrecuente;
         private $cantMillas;
         public function __construct($nombre, $apellido, $dni, $telefono, $numAsiento, $numTicket, $numPasajeroFrecuente,$cantMillas){
